@@ -1,0 +1,34 @@
+AllCops:
+  TargetRubyVersion: 3.0.2
+  NewCops: enable
+  Exclude:
+    - "bin/**/*"
+    - "public/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 16
+
+Metrics/BlockLength:
+  Max: 30
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
