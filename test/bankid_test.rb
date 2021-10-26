@@ -95,6 +95,30 @@ class BankidTest < Minitest::Test
     refute poll.completed?
   end
 
+  def test_authentication_to_h
+    result = {
+      order_ref: "131daac9-16c6-4618-beb0-365768f37288",
+      auto_start_token: "7c40b5c9-fa74-49cf-b98c-bfe651f9a7c6",
+      qr_start_token: "67df3917-fa0d-44e5-b327-edcc928297f8",
+      qr_start_secret: "d28db9a7-4cde-429e-a983-359be676944c"
+
+    }
+    auth = Bankid::Authentication.new(**result)
+
+    assert_equal(auth.to_h, result)
+  end
+
+  def test_poll_to_h
+    result = {
+      order_ref: "131daac9-16c6-4618-beb0-365768f37288",
+      status: "failed",
+      hint_code: "userCancel"
+    }
+    poll = Bankid::Poll.new(**result)
+
+    assert_equal(poll.to_h, result.merge({ completion_data: {} }))
+  end
+
   def successful_auth_response
     JSON.dump(
       {

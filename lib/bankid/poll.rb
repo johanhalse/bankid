@@ -20,6 +20,10 @@ module Bankid
       status == "failed"
     end
 
+    def to_h
+      ATTRS.map { |a| [a, send(a)] }.to_h
+    end
+
     def ==(other)
       ATTRS.all? { |a| send(a) == other.send(a) }
     end

@@ -23,7 +23,7 @@ Or install it yourself as:
 Bankid authentication is done in the following steps:
 
 1. Generate an "authentication order" by hitting the `auth` endpoint
-2. You get an authentication object containing -- among other things -- an `orderRef` and a `startSecret` back
+2. You get an authentication object containing, among other things, an `orderRef` and a `startSecret` back
 3. Use the data contained in the authentication object to show the user a QR code
 4. Poll the `collect` endpoint every now and then using the `orderRef` you got back in the second step
 5. When user has scanned the QR code and logged in, the poll will return their data.
