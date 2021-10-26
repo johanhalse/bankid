@@ -3,19 +3,55 @@
 require "http"
 require "pry"
 require "rqrcode"
+require_relative "bankid/authentication"
+require_relative "bankid/poll"
 require_relative "bankid/version"
 
 module Bankid
-  TEST_URL = "https://appapi2.test.bankid.com/rp/v5.1/auth"
-  PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1/auth"
+  TEST_URL = "https://appapi2.test.bankid.com/rp/v5.1"
+  PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
 
   class Error < StandardError; end
-
-  Authentication = Struct.new(:order_ref, :auto_start_token, :qr_start_token, :qr_start_secret, keyword_init: true)
 
   class Auth
     def initialize
       @cert, @root_cert = load_certificates
+    end
+
+    def generate_qr(start_token:, start_secret:, seconds:)
+      RQRCode::QRCode.new(
+        qr_auth_code(start_token, start_secret, seconds)
+      )
+    end
+
+    def poll(order_ref:)
+      response = HTTP
+                 .headers("Content-Type": "application/json")
+                 .post("#{TEST_URL}/collect", ssl_context: ssl_context, json: { orderRef: order_ref }).to_s
+
+      Poll.new(**camelize(JSON.parse(response)))
+    end
+
+    def generate_authentication(ip:, id_number: nil)
+      response = HTTP
+                 .headers("Content-Type": "application/json")
+                 .post("#{TEST_URL}/auth", ssl_context: ssl_context, json: auth_data(ip, id_number)).to_s
+
+      Authentication.new(**camelize(JSON.parse(response)))
+    end
+
+    private
+
+    def auth_data(ip, id_number)
+      { endUserIp: ip }.merge(id_number ? { id_number: id_number } : {})
+    end
+
+    def camelize(response)
+      response.transform_keys { |k| underscore(k.to_s).to_sym }
+    end
+
+    def cert_path(file)
+      File.absolute_path("./config/certs/#{file}")
     end
 
     def load_certificates
@@ -25,40 +61,10 @@ module Bankid
       ]
     end
 
-    def cert_path(file)
-      File.absolute_path("./config/certs/#{file}")
-    end
-
-    def generate_qr(start_token:, start_secret:, seconds:)
-      RQRCode::QRCode.new(
-        qr_auth_code(start_token, start_secret, seconds)
-      )
-    end
-
-    def generate_authentication(ip:, id_number: nil)
-      response = JSON.parse(
-        HTTP
-          .headers("Content-Type": "application/json")
-          .post(TEST_URL, ssl_context: ssl_context, json: data(ip, id_number)).to_s
-      )
-
-      Authentication.new(camelize(response))
-    end
-
-    def camelize(response)
-      response.transform_keys { |k| k.to_s.underscore }
-    end
-
     def qr_auth_code(start_token, start_secret, seconds)
       auth_code = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("SHA256"), start_secret, seconds.to_s)
 
       "bankid.#{start_token}.#{seconds}.#{auth_code}"
-    end
-
-    def data(ip, id_number)
-      { endUserIp: ip }.merge(
-        id_number ? { id_number: id_number } : {}
-      )
     end
 
     def ssl_context
@@ -69,6 +75,14 @@ module Bankid
           [@root_cert]
         )
       end
+    end
+
+    def underscore(str)
+      str.gsub(/::/, "/")
+         .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+         .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+         .tr("-", "_")
+         .downcase
     end
   end
 end

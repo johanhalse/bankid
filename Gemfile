@@ -9,3 +9,7 @@ gem "minitest", "~> 5.0"
 gem "pry"
 gem "rake", "~> 13.0"
 gem "rubocop", "~> 1.7"
+
+group :test do
+  gem "webmock"
+end
