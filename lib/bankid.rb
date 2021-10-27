@@ -28,7 +28,7 @@ module Bankid
     end
 
     def self.clear_stubs
-      remove_instance_variable(:@stubs)
+      remove_instance_variable(:@stubs) if defined?(@stubs)
     end
 
     def initialize(env: "development", cert_password: "qwerty123")
