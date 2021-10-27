@@ -14,7 +14,27 @@ module Bankid
   class Error < StandardError; end
 
   class Auth
-    def initialize
+    def self.stub_endpoint(endpoint, data)
+      @stubs = {} unless defined?(@stubs)
+      @stubs[endpoint] = data
+    end
+
+    def self.endpoint_stub(endpoint)
+      unless defined?(@stubs)
+        raise "You should stub the endpoint `#{endpoint}` with the `Bankid::Auth.stub_endpoint` method"
+      end
+
+      @stubs[endpoint]
+    end
+
+    def self.clear_stubs
+      remove_instance_variable(:@stubs)
+    end
+
+    def initialize(env: "development", cert_password: "qwerty123")
+      @stubs = []
+      @env = env
+      @cert_password = cert_password
       @cert, @root_cert = load_certificates
     end
 
@@ -25,22 +45,24 @@ module Bankid
     end
 
     def poll(order_ref:)
-      response = HTTP
-                 .headers("Content-Type": "application/json")
-                 .post("#{TEST_URL}/collect", ssl_context: ssl_context, json: { orderRef: order_ref }).to_s
-
+      response = request("collect", { orderRef: order_ref })
       Poll.new(**camelize(JSON.parse(response)))
     end
 
     def generate_authentication(ip:, id_number: nil)
-      response = HTTP
-                 .headers("Content-Type": "application/json")
-                 .post("#{TEST_URL}/auth", ssl_context: ssl_context, json: auth_data(ip, id_number)).to_s
-
+      response = request("auth", auth_data(ip, id_number))
       Authentication.new(**camelize(JSON.parse(response)))
     end
 
     private
+
+    def request(endpoint, data)
+      return Auth.endpoint_stub(endpoint) if @env == "test"
+
+      HTTP
+        .headers("Content-Type": "application/json")
+        .post("#{TEST_URL}/#{endpoint}", ssl_context: ssl_context, json: data).to_s
+    end
 
     def auth_data(ip, id_number)
       { endUserIp: ip }.merge(id_number ? { id_number: id_number } : {})
@@ -51,13 +73,15 @@ module Bankid
     end
 
     def cert_path(file)
-      File.absolute_path("./config/certs/#{file}")
+      File.absolute_path("./config/certs/#{@env}_#{file}")
     end
 
     def load_certificates
+      return if @env == "test"
+
       [
-        OpenSSL::PKCS12.new(File.read(cert_path("FPTestcert3_20200618.p12")), "qwerty123"),
-        OpenSSL::X509::Certificate.new(File.read(cert_path("bankid_test_certificate.pem")))
+        OpenSSL::PKCS12.new(File.read(cert_path("client_certificate.p12")), @cert_password),
+        OpenSSL::X509::Certificate.new(File.read(cert_path("bankid_certificate.pem")))
       ]
     end
 
