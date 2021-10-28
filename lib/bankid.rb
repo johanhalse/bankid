@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 require "http"
-require "pry"
 require "rqrcode"
 require_relative "bankid/authentication"
 require_relative "bankid/poll"
 require_relative "bankid/version"
 
 module Bankid
-  TEST_URL = "https://appapi2.test.bankid.com/rp/v5.1"
-  PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
+  DEVELOPMENT_URL = "https://appapi2.test.bankid.com/rp/v5.1"
+  PRODUCTION_URL = "https://appapi2.test.bankid.com/rp/v5.1"
+  # PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
 
   class Error < StandardError; end
 
@@ -34,6 +34,7 @@ module Bankid
     def initialize(env: "development", cert_password: "qwerty123")
       @stubs = []
       @env = env
+      @url = Bankid.const_get("#{env.upcase}_URL")
       @cert_password = cert_password
       @cert, @root_cert = load_certificates
     end
@@ -61,7 +62,7 @@ module Bankid
 
       HTTP
         .headers("Content-Type": "application/json")
-        .post("#{TEST_URL}/#{endpoint}", ssl_context: ssl_context, json: data).to_s
+        .post("#{@url}/#{endpoint}", ssl_context: ssl_context, json: data).to_s
     end
 
     def auth_data(ip, id_number)
