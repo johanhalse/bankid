@@ -7,6 +7,7 @@ require_relative "bankid/poll"
 require_relative "bankid/version"
 
 module Bankid
+  TEST_URL = "http://127.0.0.1"
   DEVELOPMENT_URL = "https://appapi2.test.bankid.com/rp/v5.1"
   PRODUCTION_URL = "https://appapi2.test.bankid.com/rp/v5.1"
   # PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
