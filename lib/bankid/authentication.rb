@@ -13,7 +13,7 @@ module Bankid
     end
 
     def to_h
-      ATTRS.map { |a| [a, send(a)] }.to_h
+      ATTRS.to_h { |a| [a, send(a)] }
     end
 
     def ==(other)
