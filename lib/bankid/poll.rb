@@ -5,7 +5,7 @@ module Bankid
     ATTRS = %i[order_ref status hint_code completion_data].freeze
     attr_accessor(*ATTRS)
 
-    def initialize(order_ref:, status:, hint_code: nil, completion_data: {})
+    def initialize(order_ref: nil, status: nil, hint_code: nil, completion_data: {})
       @order_ref = order_ref
       @status = status
       @hint_code = hint_code
@@ -18,6 +18,10 @@ module Bankid
 
     def failed?
       status == "failed"
+    end
+
+    def timed_out?
+      hint_code == "startFailed"
     end
 
     def to_h
