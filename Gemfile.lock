@@ -17,7 +17,7 @@ GEM
       rexml
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    ffi (1.15.4)
+    ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -34,32 +34,32 @@ GEM
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     method_source (1.0.0)
-    minitest (5.14.4)
+    minitest (5.15.0)
     parallel (1.21.0)
-    parser (3.0.2.0)
+    parser (3.1.0.0)
       ast (~> 2.4.1)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.1.1)
+    regexp_parser (2.2.0)
     rexml (3.2.5)
     rqrcode (2.1.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 1.0)
     rqrcode_core (1.2.0)
-    rubocop (1.22.2)
+    rubocop (1.25.1)
       parallel (~> 1.10)
-      parser (>= 3.0.0.0)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.12.0, < 2.0)
+      rubocop-ast (>= 1.15.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.12.0)
+    rubocop-ast (1.15.1)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     unf (0.1.4)
@@ -76,10 +76,10 @@ PLATFORMS
 
 DEPENDENCIES
   bankid!
-  minitest (~> 5.0)
+  minitest
   pry
-  rake (~> 13.0)
-  rubocop (~> 1.7)
+  rake
+  rubocop
   webmock
 
 BUNDLED WITH

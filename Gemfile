@@ -5,10 +5,10 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in bankid.gemspec
 gemspec
 
-gem "minitest", "~> 5.0"
+gem "minitest"
 gem "pry"
-gem "rake", "~> 13.0"
-gem "rubocop", "~> 1.7"
+gem "rake"
+gem "rubocop"
 
 group :test do
   gem "webmock"

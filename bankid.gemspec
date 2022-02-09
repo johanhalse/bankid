@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Johan Halse"]
   spec.email         = ["johan@hal.se"]
 
-  spec.summary       = "Write a short summary, because RubyGems requires one."
-  spec.description   = "Write a longer description or delete this line."
+  spec.summary       = "BankID authentication for Ruby."
+  spec.description   = "A simple and easy way to add Swedish BankID QR code login to your site."
   spec.homepage      = "https://github.com/johanhalse/bankid"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
