@@ -2,14 +2,20 @@
 
 module Bankid
   class Poll
-    ATTRS = %i[order_ref status hint_code completion_data].freeze
+    ATTRS = %i[order_ref status hint_code completion_data error_code details].freeze
     attr_accessor(*ATTRS)
 
-    def initialize(order_ref: nil, status: nil, hint_code: nil, completion_data: {})
+    def initialize(order_ref: nil, status: nil, hint_code: nil, completion_data: {}, error_code: nil, details: nil)
       @order_ref = order_ref
       @status = status
+      @status = status
+      @error_code = error_code
+      @details = details
       @hint_code = hint_code
       @completion_data = completion_data
+      if @error_code.to_s.length > 0 && @status.to_s.length == 0
+        @status = 'failed'
+      end
     end
 
     def completed?

@@ -95,6 +95,24 @@ class BankidTest < Minitest::Test
     refute poll.completed?
   end
 
+  def test_it_shows_a_poll_as_failed_with_error
+    stub_request(:post, "https://appapi2.test.bankid.com/rp/v5.1/collect")
+      .to_return(status: 200, body: error_response)
+    bankid = Bankid::Auth.new
+    poll = bankid.poll(order_ref: "131daac9-16c6-4618-beb0-365768f37288")
+
+    assert_equal(
+      Bankid::Poll.new(
+        status: "failed",
+        details: 'No such order',
+        error_code: 'invalidParameters'
+      ),
+      poll
+    )
+    assert poll.failed?
+    refute poll.completed?
+  end
+
   def test_authentication_to_h
     result = {
       order_ref: "131daac9-16c6-4618-beb0-365768f37288",
@@ -116,7 +134,16 @@ class BankidTest < Minitest::Test
     }
     poll = Bankid::Poll.new(**result)
 
-    assert_equal(poll.to_h, result.merge({ completion_data: {} }))
+    assert_equal(poll.to_h, result.merge({ completion_data: {}, :error_code => nil, :details => nil }))
+  end
+
+  def error_response
+    JSON.dump(
+      {
+        "errorCode": "invalidParameters",
+        "details": "No such order"
+      }
+    )
   end
 
   def successful_auth_response
@@ -176,4 +203,5 @@ class BankidTest < Minitest::Test
     )
   end
 end
+
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength
