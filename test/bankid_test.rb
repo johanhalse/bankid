@@ -95,6 +95,23 @@ class BankidTest < Minitest::Test
     refute poll.completed?
   end
 
+  def test_poll_with_errors
+    stub_request(:post, "https://appapi2.test.bankid.com/rp/v5.1/collect")
+      .to_return(status: 200, body: error_collect_response)
+    bankid = Bankid::Auth.new
+    poll = bankid.poll(order_ref: "131daac9-16c6-4618-beb0-365768f37288")
+
+    assert_equal(
+      Bankid::Poll.new(
+        error_code: "400",
+        details: "Oh bother"
+      ),
+      poll
+    )
+    assert poll.failed?
+    refute poll.completed?
+  end
+
   def test_authentication_to_h
     result = {
       order_ref: "131daac9-16c6-4618-beb0-365768f37288",
@@ -116,7 +133,7 @@ class BankidTest < Minitest::Test
     }
     poll = Bankid::Poll.new(**result)
 
-    assert_equal(poll.to_h, result.merge({ completion_data: {} }))
+    assert_equal(poll.to_h, result.merge({ completion_data: {}, error_code: nil, details: nil }))
   end
 
   def successful_auth_response
@@ -146,6 +163,15 @@ class BankidTest < Minitest::Test
         orderRef: "131daac9-16c6-4618-beb0-365768f37288",
         status: "failed",
         hintCode: "userCancel"
+      }
+    )
+  end
+
+  def error_collect_response
+    JSON.dump(
+      {
+        errorCode: "400",
+        details: "Oh bother"
       }
     )
   end
