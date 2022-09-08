@@ -39,6 +39,7 @@ class BankidTest < Minitest::Test
       ),
       poll
     )
+    assert poll.pending?
     refute poll.completed?
     refute poll.failed?
   end

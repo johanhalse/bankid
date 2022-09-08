@@ -24,6 +24,10 @@ module Bankid
       status == "failed" || error_code
     end
 
+    def pending?
+      status == "pending"
+    end
+
     def timed_out?
       hint_code == "startFailed"
     end
