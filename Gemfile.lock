@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bankid (0.1.1)
+    bankid (0.1.2)
       http (~> 5.0.4)
       rqrcode (~> 2.1.0)
 
@@ -46,7 +46,7 @@ GEM
     rake (13.0.6)
     regexp_parser (2.2.0)
     rexml (3.2.5)
-    rqrcode (2.1.1)
+    rqrcode (2.1.2)
       chunky_png (~> 1.0)
       rqrcode_core (~> 1.0)
     rqrcode_core (1.2.0)

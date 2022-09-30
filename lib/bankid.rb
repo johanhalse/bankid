@@ -36,7 +36,7 @@ module Bankid
       @env = env
       @url = Bankid.const_get("#{env.upcase}_URL")
       @cert_password = cert_password
-      @cert, @root_cert = load_certificates
+      @cert, @key, @root_cert = load_certificates
     end
 
     def generate_qr(start_token:, start_secret:, seconds:)
@@ -81,7 +81,8 @@ module Bankid
       return if @env == "test"
 
       [
-        OpenSSL::PKCS12.new(File.read(cert_path("client_certificate.p12")), @cert_password),
+        OpenSSL::X509::Certificate.new(File.read(cert_path("client_certificate.pem"))),
+        OpenSSL::PKey::RSA.new(File.read(cert_path("client_certificate.key")), @cert_password),
         OpenSSL::X509::Certificate.new(File.read(cert_path("bankid_certificate.pem")))
       ]
     end
@@ -95,8 +96,8 @@ module Bankid
     def ssl_context
       OpenSSL::SSL::SSLContext.new.tap do |ctx|
         ctx.add_certificate(
-          @cert.certificate,
-          @cert.key,
+          @cert,
+          @key,
           [@root_cert]
         )
       end
