@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## [0.2.0] - 2022-09-30
+## [1.0.0] - 2022-09-30
 
 - Deprecate the `PKCS12` algorithm in favor of `X509`: [issue #3](https://github.com/johanhalse/bankid/issues/3)
 
