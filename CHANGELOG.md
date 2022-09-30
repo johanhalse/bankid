@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.2.0] - 2022-09-30
+
+- Deprecate the `PKCS12` algorithm in favor of `X509`: [issue #3](https://github.com/johanhalse/bankid/issues/3)
+
 ## [0.1.2] - 2022-09-08
 
 - Add `pending?` method call for poll response object

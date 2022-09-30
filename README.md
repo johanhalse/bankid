@@ -58,6 +58,26 @@ raise "logged in!" if response.status == "complete"
 
 Keep polling until your response status changes to "complete", and the response object will be a struct containing the `completion_data` property you're ultimately looking for.
 
+## Certificates
+
+Your BankID provider will have given you a certificate. It might be in `.p12` format. If that's the case, you'll need to convert it to an OpenSSL X509 certificate - version 0.1.x of the BankID gem relied on PKCS12 which saw [big changes in OpenSSL v3](https://github.com/johanhalse/bankid/issues/3), so the implementation has been switched to X509 instead. The gem looks for a certificate and a key in these default locations:
+
+```
+./config/certs/#{environment}_client_certificate.pem
+./config/certs/#{environment}_client_certificate.key
+```
+
+If you're upgrading from 0.1.x and want to convert an existing p12 key, it's pretty straightforward:
+
+```
+# Export certificate
+openssl pkcs12 -legacy -in my_certificate.p12 -clcerts -nokeys -out my_certificate.pem
+# Export key
+openssl pkcs12 -legacy -in my_certificate.p12 -clcerts -nocerts -out my_certificate.key
+```
+
+That should hopefully get things running again.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
