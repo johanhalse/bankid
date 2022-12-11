@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [1.0.1] - 2022-12-11
+
+- Include new development client certificate instead of the old expired one
+
 ## [1.0.0] - 2022-09-30
 
 - Deprecate the `PKCS12` algorithm in favor of `X509`: [issue #3](https://github.com/johanhalse/bankid/issues/3)
