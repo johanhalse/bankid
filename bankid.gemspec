@@ -32,8 +32,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "http", "~> 5.0.4"
-  spec.add_dependency "rqrcode", "~> 2.1.0"
+  spec.add_dependency "http", "~> 5.1.1"
+  spec.add_dependency "rqrcode", "~> 2.2.0"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

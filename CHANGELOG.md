@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [2.0.0] - 2023-09-15
+
+- Refresh development client certificate
+- Replace `Poll` class with a more useful `Result` struct containing a `state` method
+
 ## [1.0.1] - 2022-12-11
 
 - Include new development client certificate instead of the old expired one

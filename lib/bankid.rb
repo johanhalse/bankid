@@ -2,8 +2,7 @@
 
 require "http"
 require "rqrcode"
-require_relative "bankid/authentication"
-require_relative "bankid/poll"
+require_relative "bankid/result"
 require_relative "bankid/version"
 
 module Bankid
@@ -11,28 +10,12 @@ module Bankid
   DEVELOPMENT_URL = "https://appapi2.test.bankid.com/rp/v5.1"
   PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
 
+  Authentication = Data.define(:order_ref, :auto_start_token, :qr_start_token, :qr_start_secret)
+
   class Error < StandardError; end
 
   class Auth
-    def self.stub_endpoint(endpoint, data)
-      @stubs = {} unless defined?(@stubs)
-      @stubs[endpoint] = data
-    end
-
-    def self.endpoint_stub(endpoint)
-      unless defined?(@stubs)
-        raise "You should stub the endpoint `#{endpoint}` with the `Bankid::Auth.stub_endpoint` method"
-      end
-
-      @stubs[endpoint]
-    end
-
-    def self.clear_stubs
-      remove_instance_variable(:@stubs) if defined?(@stubs)
-    end
-
     def initialize(env: "development", cert_password: "qwerty123")
-      @stubs = []
       @env = env
       @url = Bankid.const_get("#{env.upcase}_URL")
       @cert_password = cert_password
@@ -47,7 +30,7 @@ module Bankid
 
     def poll(order_ref:)
       response = request("collect", { orderRef: order_ref })
-      Poll.new(**camelize(JSON.parse(response)))
+      Result.new(**camelize(JSON.parse(response)))
     end
 
     def generate_authentication(ip:, id_number: nil)
@@ -58,8 +41,6 @@ module Bankid
     private
 
     def request(endpoint, data)
-      return Auth.endpoint_stub(endpoint) if @env == "test"
-
       HTTP
         .headers("Content-Type": "application/json")
         .post("#{@url}/#{endpoint}", ssl_context: ssl_context, json: data).to_s
@@ -104,7 +85,7 @@ module Bankid
     end
 
     def underscore(str)
-      str.gsub(/::/, "/")
+      str.gsub("::", "/")
          .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
          .gsub(/([a-z\d])([A-Z])/, '\1_\2')
          .tr("-", "_")
