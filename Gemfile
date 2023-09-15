@@ -6,10 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "minitest"
-gem "pry"
+gem "pry", group: %i[test development]
 gem "rake"
 gem "rubocop"
-
-group :test do
-  gem "webmock"
-end
+gem "webmock", group: :test
