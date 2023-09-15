@@ -53,10 +53,12 @@ Final step:
 
 ```ruby
 response = client.poll(order_ref: auth.order_ref)
-raise "logged in!" if response.status == "complete"
+raise "logged in!" if response.state == "complete"
 ```
 
-Keep polling until your response status changes to "complete", and the response object will be a struct containing the `completion_data` property you're ultimately looking for.
+Keep polling until your response state changes to "complete", and the response object will be a struct containing the `completion_data` property you're ultimately looking for. State will be `pending` until then, or `failed` if user has aborted or something unexpected has happened.
+
+Note that you'll only get `complete` and `completion_data` returned once! Make sure you act on the data when it's consumed—the next time you ask, you're going to get a failed response because the order has been marked as successful and deleted.
 
 ## Certificates
 
@@ -77,6 +79,8 @@ openssl pkcs12 -legacy -in my_certificate.p12 -clcerts -nocerts -out my_certific
 ```
 
 That should hopefully get things running again.
+
+This gem includes the issuer certificate as well: you'll find the development cert in `(gem path)/config/development_bankid_certificate.pem` and production `(gem path)/config/production_bankid_certificate.pem)`. These are loaded unless you've provided your own in your app's `config/certs` path. Also included are the development p12 and pem/key files from [this page](https://www.bankid.com/en/utvecklare/guider/teknisk-integrationsguide/miljoer) so you can run with demo certificates in test and production.
 
 ## Development
 
