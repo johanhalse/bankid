@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bankid (1.0.1)
+    bankid (2.0.0)
       http (~> 5.1.1)
       rqrcode (~> 2.2.0)
 
