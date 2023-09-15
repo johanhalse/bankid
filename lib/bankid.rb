@@ -43,11 +43,11 @@ module Bankid
     def request(endpoint, data)
       HTTP
         .headers("Content-Type": "application/json")
-        .post("#{@url}/#{endpoint}", ssl_context: ssl_context, json: data).to_s
+        .post("#{@url}/#{endpoint}", ssl_context:, json: data).to_s
     end
 
     def auth_data(ip, id_number)
-      { endUserIp: ip }.merge(id_number ? { id_number: id_number } : {})
+      { endUserIp: ip }.merge(id_number ? { id_number: } : {})
     end
 
     def camelize(response)

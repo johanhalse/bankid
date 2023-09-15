@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = "A simple and easy way to add Swedish BankID QR code login to your site."
   spec.homepage      = "https://github.com/johanhalse/bankid"
   spec.license       = "MIT"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
