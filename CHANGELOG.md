@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [2.0.1] - 2023-09-21
+
+- Automaticall pick up certificates from gem unless present in project
+
 ## [2.0.0] - 2023-09-15
 
 - Refresh development client certificate
