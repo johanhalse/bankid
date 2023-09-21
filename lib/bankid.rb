@@ -55,7 +55,10 @@ module Bankid
     end
 
     def cert_path(file)
-      File.absolute_path("./config/certs/#{@env}_#{file}")
+      project_path = File.absolute_path("./config/certs/#{@env}_#{file}")
+      return project_path if File.exist?(project_path)
+
+      "#{Bundler.rubygems.find_name("bankid").first.full_gem_path}/config/certs/#{@env}_#{file}"
     end
 
     def load_certificates
