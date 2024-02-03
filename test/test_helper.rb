@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "bankid"
+# Configure Rails Environment
+ENV["RAILS_ENV"] = "test"
 
-require "pry"
-require "minitest/autorun"
+require_relative "../test/dummy/config/environment"
+ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/migrate", __dir__)]
+require "rails/test_help"
 require "webmock/minitest"
+require "vcr"
 
-def bankid_fixture(name)
-  JSON.load_file("test/fixtures/#{name}.json").transform_keys { |k| underscore(k.to_s).to_sym }
+VCR.configure do |config|
+  config.cassette_library_dir = "test/fixtures/vcr_cassettes"
+  config.hook_into :webmock
 end
 
-def underscore(str)
-  str.gsub("::", "/")
-     .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-     .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-     .tr("-", "_")
-     .downcase
+# Load fixtures from the engine
+if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
+  ActiveSupport::TestCase.fixture_paths = [File.expand_path("fixtures", __dir__)]
+  ActionDispatch::IntegrationTest.fixture_paths = ActiveSupport::TestCase.fixture_paths
+  ActiveSupport::TestCase.file_fixture_path = "#{File.expand_path("fixtures", __dir__)}/files"
+  ActiveSupport::TestCase.fixtures :all
 end

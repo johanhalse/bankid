@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Specify your gem's dependencies in bankid.gemspec
+# Specify your gem's dependencies in bankid.gemspec.
 gemspec
 
-gem "minitest"
-gem "pry", group: %i[test development]
-gem "rake"
+gem "puma"
 gem "rubocop"
-gem "webmock", group: :test
+gem "sqlite3"
+
+group :test do
+  gem "vcr"
+  gem "webmock"
+end
