@@ -1,0 +1,63 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://appapi2.test.bankid.com/rp/v5.1/sign",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "string": "{\"endUserIp\":\"127.0.0.1\",\"userVisibleData\":\"VHJhbnNsYXRpb24gbWlzc2luZy4gT3B0aW9ucyBjb25zaWRlcmVkIHdlcmU6\\nCi0gZW4uc2lnbmF0dXJlcy5uZXcuYm9keQotIGVuLnNpZ25hdHVyZXMuYm9k\\neQ==\\n\"}"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Connection": [
+            "close"
+          ],
+          "Host": [
+            "appapi2.test.bankid.com"
+          ],
+          "User-Agent": [
+            "http.rb/5.1.1"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Expires": [
+            "0"
+          ],
+          "Connection": [
+            "close"
+          ],
+          "Cache-Control": [
+            "no-cache, no-store, must-revalidate"
+          ],
+          "Server": [
+            "BankID"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Sat, 03 Feb 2024 15:19:38 GMT"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"orderRef\":\"a39b5ce4-b7cc-48af-ab09-934db3a54e44\",\"autoStartToken\":\"bf82d927-31d4-46e3-90eb-ed26fe9a4512\",\"qrStartToken\":\"eb4b760a-415c-4c41-b429-9dffabacd059\",\"qrStartSecret\":\"90ebd474-d97a-4c5d-86d8-84b165b06f5b\"}"
+        }
+      },
+      "recorded_at": "Sat, 03 Feb 2024 15:19:38 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

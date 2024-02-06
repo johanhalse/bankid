@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 3.2.0
+  TargetRubyVersion: 3.3.0
   NewCops: enable
   Exclude:
     - "bin/**/*"
@@ -21,6 +21,15 @@ Metrics/MethodLength:
 
 Metrics/BlockLength:
   Max: 30
+
+Naming/VariableName:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false

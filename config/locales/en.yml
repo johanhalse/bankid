@@ -1,0 +1,15 @@
+en:
+  bankid:
+    hints:
+      cancelled: Action cancelled. Please try again.
+      alreadyInProgress: An identification or signing for this personal number is already started. Please try again.
+      requestTimeout: Internal error. Please try again.
+      maintenance: Internal error. Please try again.
+      userCancel: Action cancelled.
+      expiredTransaction: The BankID app is not responding. Please check that it’s started and that you have internet access. If you don’t have a valid BankID you can get one from your bank. Try again.
+      userSign: Enter your security code in the BankID app and select Identify or Sign.
+      outstandingTransaction: Trying to start your BankID app.
+      started: "Searching for BankID, it may take a little while. If a few seconds have passed and still no BankID has been found, you probably don’t have a BankID which can be used for this identification/signing on this computer. If you have a BankID card, please insert it into your card reader. If you don’t have a BankID you can get one from your bank. If you have a BankID on another device you can start the BankID app on that device."
+      certificateErr: The BankID you are trying to use is blocked or too old. Please use another BankID or get a new one from your bank.
+      startFailed: The BankID app couldn’t be found on your computer or mobile device. Please install it and get a BankID from your bank. Install the app from your app store or https://install.bankid.com.
+      userMrtd: Process your machine-readable travel document using the BankID app.

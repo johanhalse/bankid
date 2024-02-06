@@ -1,0 +1,11 @@
+<%= link_to "Sign in on this device", @bankid_secret.autostart_link(request.url) %>
+<%=
+  @bankid_secret.qr_code.as_svg(
+    color: "000",
+    shape_rendering: "crispEdges",
+    module_size: 11,
+    standalone: true,
+    use_path: true,
+    viewbox: "svg.viewBox"
+  ).html_safe
+%>

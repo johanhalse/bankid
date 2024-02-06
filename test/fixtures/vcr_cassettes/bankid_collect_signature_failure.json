@@ -1,0 +1,63 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://appapi2.test.bankid.com/rp/v5.1/collect",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "string": "{\"orderRef\":\"a39b5ce4-b7cc-48af-ab09-934db3a54e44\"}"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Connection": [
+            "close"
+          ],
+          "Host": [
+            "appapi2.test.bankid.com"
+          ],
+          "User-Agent": [
+            "http.rb/5.1.1"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Expires": [
+            "0"
+          ],
+          "Connection": [
+            "close"
+          ],
+          "Cache-Control": [
+            "no-cache, no-store, must-revalidate"
+          ],
+          "Server": [
+            "BankID"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Sat, 03 Feb 2024 15:19:52 GMT"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"orderRef\":\"a39b5ce4-b7cc-48af-ab09-934db3a54e44\",\"status\":\"failed\",\"hintCode\":\"userCancel\"}"
+        }
+      },
+      "recorded_at": "Sat, 03 Feb 2024 15:19:52 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

@@ -1,0 +1,15 @@
+en:
+  bankid:
+    hints:
+      cancelled: Åtgärden avbruten. Försök igen.
+      alreadyInProgress: En identifiering eller underskrift för det här personnumret är redan påbörjad. Försök igen.
+      requestTimeout: Internt tekniskt fel. Försök igen.
+      maintenance: Internt tekniskt fel. Försök igen.
+      userCancel: Åtgärden avbruten.
+      expiredTransaction: BankID-appen svarar inte. Kontrollera att den är startad och att du har internetanslutning. Om du inte har något giltigt BankID kan du skaffa ett hos din bank. Försök sedan igen.
+      userSign: Skriv in din säkerhetskod i BankID-appen och välj Identifiera eller Skriv under.
+      outstandingTransaction: Försöker starta BankID-appen.
+      started: "Söker efter BankID, det kan ta en liten stund. Om det har gått några sekunder och inget BankID har hittats har du sannolikt inget BankID som går att använda för den aktuella identifieringen/underskriften i den här datorn. Om du har ett BankID-kort, sätt in det i kortläsaren. Om du inte har något BankID kan du skaffa ett hos din bank. Om du har ett BankID på en annan enhet kan du starta din BankID-app där."
+      certificateErr: Det BankID du försöker använda är för gammalt eller spärrat. Använd ett annat BankID eller skaffa ett nytt hos din bank.
+      startFailed: BankID-appen verkar inte finnas i din dator eller mobil. Installera den och skaffa ett BankID hos din bank. Installera appen från din appbutik eller https://install.bankid.com
+      userMrtd: Fotografera och läs av din ID-handling med BankID-appen.
