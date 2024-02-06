@@ -18,6 +18,10 @@ module Bankid
       "https://app.bankid.com/?autostarttoken=#{@auto_start_token}" "&redirect=#{return_url}"
     end
 
+    def desktop_link(return_url)
+      "bankid:///?autostarttoken=#{@auto_start_token}&redirect=#{CGI.escape(return_url)}"
+    end
+
     def elapsed_seconds
       ((Time.zone.now - @created_at).to_f / RESOLUTION).floor * RESOLUTION
     end

@@ -6,8 +6,8 @@ module Bankid
 
     initializer "bankid" do |app|
       Bankid.config = app.config.bankid
-      path = "#{Bundler.rubygems.find_name("bankid").first.full_gem_path}/config/locales/#{I18n.locale}.yml"
-      I18n.load_path += [path]
+      path = "#{Bundler.rubygems.find_name("bankid").first.full_gem_path}/config/locales/"
+      I18n.load_path += ["#{path}sv.yml", "#{path}en.yml"]
     end
   end
 end

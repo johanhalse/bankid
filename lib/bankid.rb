@@ -30,6 +30,7 @@ module Bankid
   def self.collect(id)
     result_json = Client.new.collect(order_ref: id)
     cached_secret = Rails.cache.read(id)
+    # binding.irb
     [Secret.new(**cached_secret.symbolize_keys), Result.new(result_json:)]
   end
 
