@@ -14,6 +14,7 @@ module Bankid
 
   class EnvironmentNotSetError < StandardError; end
   class MissingCertificatesError < StandardError; end
+  class NoSuchOrderError < StandardError; end
 
   def self.config
     @@config
@@ -30,7 +31,8 @@ module Bankid
   def self.collect(id)
     result_json = Client.new.collect(order_ref: id)
     cached_secret = Rails.cache.read(id)
-    # binding.irb
+    raise NoSuchOrderError if cached_secret.nil? || result_json["errorCode"].present?
+
     [Secret.new(**cached_secret.symbolize_keys), Result.new(result_json:)]
   end
 
