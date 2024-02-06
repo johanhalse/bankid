@@ -1,8 +1,21 @@
-## [Unreleased]
+## [3.0.0] - 2024-02-06
+
+Major backwards-incompatible overhaul, moving the gem closer to the Rails ecosystem and making things a lot easier. New documentation is in the [wiki](https://github.com/johanhalse/bankid/wiki).
+
+- Add signatures
+- Add `Rails.config` configuration instead of passing environment to the client
+- Automatically store secrets in `Rails.cache`
+- Add railtie and dummy test app using `vcr`
+- Split Result and Secret into different objects and return both from `collect`
+- Handle translated `hintCode` messages to users via Rails I18n
+- Function for autostart link
+- More turnkey handling of development certificates
+- Some more understandable errors raised (missing certificates & environment)
+- ...etc
 
 ## [2.0.1] - 2023-09-21
 
-- Automaticall pick up certificates from gem unless present in project
+- Automatically pick up certificates from gem unless present in project
 
 ## [2.0.0] - 2023-09-15
 
