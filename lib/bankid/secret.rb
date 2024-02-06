@@ -4,7 +4,7 @@ module Bankid
   class Secret
     RESOLUTION = 1
 
-    attr_reader :result
+    attr_reader :result, :order_ref
 
     def initialize(orderRef:, autoStartToken:, qrStartToken:, qrStartSecret:, created_at:)
       @order_ref = orderRef

@@ -15,15 +15,14 @@ module Bankid
   class Device
     attr_accessor :device, :bankid_issue_date, :signature, :ocsp_response
 
-    def initialize(device:, bankIdIssueDate:, signature:, ocspResponse:)
+    def initialize(device:, signature:, ocspResponse:)
       @device = device
-      @bankid_issue_date = bankIdIssueDate
       @signature = signature
       @ocsp_response = ocspResponse
     end
 
     def to_json(*_args)
-      { device:, bankid_issue_date:, signature:, ocsp_response: }.to_json
+      { device:, signature:, ocsp_response: }.to_json
     end
   end
 
@@ -43,11 +42,10 @@ module Bankid
       @user = User.new(**@result_json.dig("completionData", "user").symbolize_keys)
       @result_json["completionData"].symbolize_keys => {
         device:,
-        bankIdIssueDate:,
         signature:,
         ocspResponse:
       }
-      @device = Device.new(device:, bankIdIssueDate:, signature:, ocspResponse:)
+      @device = Device.new(device:, signature:, ocspResponse:)
     end
 
     def set_hint_code

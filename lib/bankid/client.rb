@@ -48,11 +48,16 @@ module Bankid
       "#{Bundler.rubygems.find_name("bankid").first.full_gem_path}/config/certs/#{file}"
     end
 
+    def intermediate_path
+      file = "#{@environment}_bankid_certificate.pem"
+      "#{Bundler.rubygems.find_name("bankid").first.full_gem_path}/config/certs/#{file}"
+    end
+
     def load_certificates
       [
         OpenSSL::X509::Certificate.new(File.read(cert_path("client_certificate.pem"))),
         OpenSSL::PKey::RSA.new(File.read(cert_path("client_certificate.key")), @cert_password),
-        OpenSSL::X509::Certificate.new(File.read(cert_path("bankid_certificate.pem")))
+        OpenSSL::X509::Certificate.new(File.read(intermediate_path))
       ]
     rescue Errno::ENOENT => _e
       raise MissingCertificatesError
