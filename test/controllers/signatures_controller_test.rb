@@ -37,6 +37,12 @@ class SignaturesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
+  test "raises " do
+    assert_raises Bankid::CachedSecretNotFoundError do
+      get signature_path("c39b5ce4-b7cc-48af-ab09-934db3a54e44")
+    end
+  end
+
   private
 
   def cached_secret
