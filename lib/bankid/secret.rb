@@ -14,8 +14,12 @@ module Bankid
       @created_at = created_at
     end
 
-    def autostart_link(return_url)
-      "https://app.bankid.com/?autostarttoken=#{@auto_start_token}" "&redirect=#{return_url}"
+    def autostart_link(return_url = nil)
+      if return_url
+        "https://app.bankid.com/?autostarttoken=#{@auto_start_token}&redirect=#{return_url}"
+      else
+        "https://app.bankid.com/?autostarttoken=#{@auto_start_token}"
+      end
     end
 
     def desktop_link(return_url)
