@@ -1,3 +1,7 @@
+## [3.1.0] - 2024-02-06
+
+Update the API version to 6.0. Thank you to [Martin Westin](https://github.com/eimermusic)
+
 ## [3.0.0] - 2024-02-06
 
 Major backwards-incompatible overhaul, moving the gem closer to the Rails ecosystem and making things a lot easier. New documentation is in the [wiki](https://github.com/johanhalse/bankid/wiki).
