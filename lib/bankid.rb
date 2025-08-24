@@ -9,8 +9,8 @@ require "bankid/secret"
 require "bankid/railtie" if defined?(Rails::Railtie)
 
 module Bankid
-  DEVELOPMENT_URL = "https://appapi2.test.bankid.com/rp/v5.1"
-  PRODUCTION_URL = "https://appapi2.bankid.com/rp/v5.1"
+  DEVELOPMENT_URL = "https://appapi2.test.bankid.com/rp/v6.0"
+  PRODUCTION_URL = "https://appapi2.bankid.com/rp/v6.0"
 
   class EnvironmentNotSetError < StandardError; end
   class MissingCertificatesError < StandardError; end
