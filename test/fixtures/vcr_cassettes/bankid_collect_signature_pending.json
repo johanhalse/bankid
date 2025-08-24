@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "post",
-        "uri": "https://appapi2.test.bankid.com/rp/v5.1/collect",
+        "uri": "https://appapi2.test.bankid.com/rp/v6.0/collect",
         "body": {
           "encoding": "ASCII-8BIT",
           "string": "{\"orderRef\":\"a39b5ce4-b7cc-48af-ab09-934db3a54e44\"}"

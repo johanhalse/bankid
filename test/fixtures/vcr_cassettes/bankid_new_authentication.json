@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "post",
-        "uri": "https://appapi2.test.bankid.com/rp/v5.1/auth",
+        "uri": "https://appapi2.test.bankid.com/rp/v6.0/auth",
         "body": {
           "encoding": "ASCII-8BIT",
           "string": "{\"endUserIp\":\"127.0.0.1\",\"userVisibleData\":\"UGxlYXNlIGxvZ2luIQ==\\n\"}"
