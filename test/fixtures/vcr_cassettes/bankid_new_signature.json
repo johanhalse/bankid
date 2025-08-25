@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "post",
-        "uri": "https://appapi2.test.bankid.com/rp/v5.1/sign",
+        "uri": "https://appapi2.test.bankid.com/rp/v6.0/sign",
         "body": {
           "encoding": "ASCII-8BIT",
           "string": "{\"endUserIp\":\"127.0.0.1\",\"userVisibleData\":\"VHJhbnNsYXRpb24gbWlzc2luZy4gT3B0aW9ucyBjb25zaWRlcmVkIHdlcmU6\\nCi0gZW4uc2lnbmF0dXJlcy5uZXcuYm9keQotIGVuLnNpZ25hdHVyZXMuYm9k\\neQ==\\n\"}"
